@@ -24,7 +24,7 @@ const App = () => {
   const addTodo = (event) => {
     event.preventDefault();
 
-    if (!todoTitle) {
+    if (!todoTitle.trim()) {
       return;
     }
 
@@ -131,17 +131,22 @@ const App = () => {
       </header>
 
       <section className="main">
-        <input
-          type="checkbox"
-          id="toggle-all"
-          className="toggle-all"
-          checked={areAllToggled}
-          onChange={() => {
-            setTogglingAll(!areAllToggled);
-            togglingAll();
-          }}
-        />
-        <label htmlFor="toggle-all">Mark all as complete</label>
+
+        {todos.length > 0 && (
+          <>
+            <input
+              type="checkbox"
+              id="toggle-all"
+              className="toggle-all"
+              checked={todos.every(todo => todo.completed)}
+              onChange={() => {
+                setTogglingAll(!areAllToggled);
+                togglingAll();
+              }}
+            />
+            <label htmlFor="toggle-all">Mark all as complete</label>
+          </>
+        )}
 
         <TodoList
           todos={filteredTodos}

@@ -12,6 +12,15 @@ export const TodoItem = ({
   const [choosenTodoId, setChoosenTodoId] = useState(null);
   const [newTitle, setNewTitle] = useState(todo.title);
 
+  const handleOnBlur = () => {
+    if (newTitle.trim()) {
+      changeTodoTitle(choosenTodoId, newTitle.trim());
+      setEditing(!isEditingNow);
+    } else {
+      deleteTodo(todo.id);
+    }
+  };
+
   const handleKeysPressing = (event) => {
     switch (event.key) {
       case 'Escape':
@@ -25,6 +34,7 @@ export const TodoItem = ({
           break;
         }
 
+        deleteTodo(todo.id);
         break;
       default:
     }
@@ -64,11 +74,14 @@ export const TodoItem = ({
         <input
           type="text"
           className="edit"
-          autoFocus
-          onBlur={() => setEditing(!isEditingNow)}
           value={newTitle}
           onChange={event => setNewTitle(event.target.value)}
           onKeyDown={event => handleKeysPressing(event)}
+          autoFocus
+          onBlur={() => {
+            setEditing(!isEditingNow);
+            handleOnBlur();
+          }}
         />
       )}
     </li>
