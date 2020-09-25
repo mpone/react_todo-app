@@ -7,10 +7,21 @@ export const TodoItem = ({
   deleteTodo,
   changeCompleteness,
   changeTodoTitle,
+  areAllToggled,
+  setTogglingAll,
 }) => {
   const [isEditingNow, setEditing] = useState(false);
   const [choosenTodoId, setChoosenTodoId] = useState(null);
   const [newTitle, setNewTitle] = useState(todo.title);
+
+  const handleOnBlur = () => {
+    if (newTitle.trim()) {
+      changeTodoTitle(choosenTodoId, newTitle.trim());
+      setEditing(!isEditingNow);
+    } else {
+      deleteTodo(todo.id);
+    }
+  };
 
   const handleKeysPressing = (event) => {
     switch (event.key) {
@@ -25,6 +36,7 @@ export const TodoItem = ({
           break;
         }
 
+        deleteTodo(todo.id);
         break;
       default:
     }
@@ -48,6 +60,7 @@ export const TodoItem = ({
           checked={todo.completed}
           onChange={() => {
             changeCompleteness(todo.id);
+            setTogglingAll(false);
           }}
         />
 
@@ -64,11 +77,14 @@ export const TodoItem = ({
         <input
           type="text"
           className="edit"
-          autoFocus
-          onBlur={() => setEditing(!isEditingNow)}
           value={newTitle}
           onChange={event => setNewTitle(event.target.value)}
           onKeyDown={event => handleKeysPressing(event)}
+          autoFocus
+          onBlur={() => {
+            setEditing(!isEditingNow);
+            handleOnBlur();
+          }}
         />
       )}
     </li>
@@ -84,4 +100,6 @@ TodoItem.propTypes = {
   deleteTodo: PropTypes.func.isRequired,
   changeCompleteness: PropTypes.func.isRequired,
   changeTodoTitle: PropTypes.func.isRequired,
+  areAllToggled: PropTypes.func.isRequired,
+  setTogglingAll: PropTypes.func.isRequired,
 };

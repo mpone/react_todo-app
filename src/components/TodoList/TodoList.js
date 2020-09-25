@@ -8,6 +8,8 @@ export const TodoList = ({
   deleteTodo,
   changeCompleteness,
   changeTodoTitle,
+  areAllToggled,
+  setTogglingAll,
 }) => (
   <ul className="todo-list">
     {todos.map(todo => (
@@ -17,6 +19,8 @@ export const TodoList = ({
         deleteTodo={deleteTodo}
         changeCompleteness={changeCompleteness}
         changeTodoTitle={changeTodoTitle}
+        areAllToggled={areAllToggled}
+        setTogglingAll={setTogglingAll}
       />
     ))}
   </ul>
@@ -27,4 +31,6 @@ TodoList.propTypes = {
   deleteTodo: PropTypes.func.isRequired,
   changeCompleteness: PropTypes.func.isRequired,
   changeTodoTitle: PropTypes.func.isRequired,
+  areAllToggled: PropTypes.func.isRequired,
+  setTogglingAll: PropTypes.func.isRequired,
 };
