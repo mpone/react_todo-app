@@ -153,6 +153,8 @@ const App = () => {
           deleteTodo={deleteTodo}
           changeCompleteness={changeCompleteness}
           changeTodoTitle={changeTodoTitle}
+          areAllToggled={areAllToggled}
+          setTogglingAll={setTogglingAll}
         />
       </section>
 

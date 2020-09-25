@@ -7,6 +7,8 @@ export const TodoItem = ({
   deleteTodo,
   changeCompleteness,
   changeTodoTitle,
+  areAllToggled,
+  setTogglingAll,
 }) => {
   const [isEditingNow, setEditing] = useState(false);
   const [choosenTodoId, setChoosenTodoId] = useState(null);
@@ -58,6 +60,7 @@ export const TodoItem = ({
           checked={todo.completed}
           onChange={() => {
             changeCompleteness(todo.id);
+            setTogglingAll(false);
           }}
         />
 
@@ -97,4 +100,6 @@ TodoItem.propTypes = {
   deleteTodo: PropTypes.func.isRequired,
   changeCompleteness: PropTypes.func.isRequired,
   changeTodoTitle: PropTypes.func.isRequired,
+  areAllToggled: PropTypes.func.isRequired,
+  setTogglingAll: PropTypes.func.isRequired,
 };
